@@ -1,0 +1,295 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package demoswing;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+/**
+ *
+ * @author Administrator
+ */
+public class MyFrame extends JFrame implements ActionListener{
+//    private final String[] titleColumn={"Id","Name","Ponit"};
+    private JTable table;
+    private JTextField tfId, tfName, tfPoint;
+    private JButton btnOk, btnCancel;
+    private boolean isUpdate=false;
+    // khai bao connect
+    MyConnect myconnect=new MyConnect();
+    
+    public MyFrame() {
+        // add main panel to jframe
+        add(createMainPanel());
+        // connect database
+        myconnect.Connect();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+        
+    }
+    private JPanel createMainPanel(){
+        JPanel jpanel=new JPanel(new BorderLayout());
+        jpanel.add(createTitlePanel(), BorderLayout.PAGE_START);
+        jpanel.add(createTablePanel(), BorderLayout.CENTER);
+        jpanel.add(createBottomPanel(), BorderLayout.PAGE_END);
+//        jpanel.setBackground(Color.darkGray);
+        return jpanel;
+    }
+    
+    //
+    private JPanel createTitlePanel(){
+        JPanel jpanel=new JPanel();
+        JLabel jlabel=new JLabel("Connect Database");
+        jpanel.add(jlabel);
+        jpanel.setBackground(Color.pink);
+        return jpanel;
+    }
+    //
+    private JPanel createTablePanel(){
+        JPanel jpanel=new JPanel();
+        jpanel.add(new JScrollPane(table=createTable()));
+        return jpanel;
+    }
+    //bottom panel
+    private JPanel createBottomPanel(){
+        JPanel panel=new JPanel(new BorderLayout(10, 10));
+        panel.setBorder(new EmptyBorder(5, 70, 10, 70));
+        panel.add(createInputPanel(), BorderLayout.CENTER);
+        panel.add(createButtonPanel(), BorderLayout.PAGE_END);
+//        panel.setBackground(Color.blue);
+        return panel;
+        
+    }
+    //input panel in bottom panel
+    private JPanel createInputPanel(){
+        JPanel panel=new JPanel(new BorderLayout(10, 10));
+        //panel left
+        JPanel panelLeft=new JPanel(new GridLayout(3, 1, 5, 5));
+        panelLeft.add(new JLabel("ID"));
+        panelLeft.add(new JLabel("Name"));
+        panelLeft.add(new JLabel("Point"));
+        // panel right
+        JPanel panelRight=new JPanel(new GridLayout(3, 1, 5, 5));
+        panelRight.add(tfId =new JTextField());
+        panelRight.add(tfName =new JTextField());
+        panelRight.add(tfPoint =new JTextField());
+        //panel ok
+        JPanel panelOk=new JPanel(new GridLayout(1, 2, 5, 5));
+        panelOk.setBorder(new EmptyBorder(0, 50, 0, 50));
+        panelOk.add(btnOk=createButton("Ok"));
+        panelOk.add(btnCancel=createButton("Cancel"));
+//        panelOk.setBackground(Color.BLUE);
+        
+        
+        panel.add(panelLeft, BorderLayout.WEST);
+        panel.add(panelRight, BorderLayout.CENTER);
+        panel.add(panelOk, BorderLayout.PAGE_END);
+        
+        return panel;
+    }
+    //
+    private JPanel createButtonPanel(){
+        JPanel jpanel=new JPanel(new GridLayout(1, 3, 10, 10));
+        jpanel.setBorder(new EmptyBorder(5, 45, 10 , 45));
+        jpanel.add(createButton("Add"));
+        jpanel.add(createButton("Update"));
+        jpanel.add(createButton("Delete"));
+        return jpanel;
+    }
+    //
+    private JTable createTable(){
+//        DefaultTableModel tablemodel=new DefaultTableModel();
+//        tablemodel.setColumnIdentifiers(titleColumn);
+        JTable table=new JTable();
+        return table;
+    }
+    //
+    private JButton createButton(String text){
+        JButton button =new JButton(text);
+        button.addActionListener(this);
+        return button;
+    }
+    //
+    
+    //
+    private boolean setDisplayInput(boolean display, boolean update){
+        if(update && table.getSelectedRow()<0){
+            return false;
+            
+        }else if (update){
+            int row =table.getSelectedRow();
+            tfId.setText((String) table.getValueAt(row, 0));
+            tfName.setText((String) table.getValueAt(row, 1));
+            tfPoint.setText((String) table.getValueAt(row, 2));
+            
+        }
+        
+        tfId.setEnabled(display);
+        tfName.setEnabled(display);
+        tfPoint.setEnabled(display);
+        btnOk.setEnabled(display);
+        btnCancel.setEnabled(display);
+        
+        return true;
+    }
+    
+    //load data
+    private void loadData(){
+        //create table model de thay doi du lieu cua chung ta
+        DefaultTableModel model=new DefaultTableModel();
+        //get data from database lay du lieu tu database
+        
+        ResultSet rs= myconnect.getData();
+        try {
+            // load column name // load tieu de cua cac cot
+            ResultSetMetaData rsMD = rs.getMetaData();
+            int zise=rsMD.getColumnCount();
+            String[] arr= new String[zise];
+            for(int i=0;i<zise;i++){
+                arr[i]=rsMD.getColumnName(i+1);
+            }
+            model.setColumnIdentifiers(arr);
+            // trong khi ban ghi cua chung ta van con ta dung vong while sau de loadData
+            // load database to from data table student_info
+            while (rs.next()) {
+                for(int i=0;i<zise;i++){
+                arr[i]=rs.getString(i+1);
+            }
+                model.addRow(arr);
+            }
+            
+        } catch (SQLException ex) {
+            
+        }
+        table.setModel(model);
+    }
+    ////delete
+    private void Delete(){
+        int row=table.getSelectedRow();
+        if(row < 0){
+            JOptionPane.showMessageDialog(null, "you must secledt row in table", "error delete", JOptionPane.ERROR_MESSAGE);
+       
+            return;
+        }
+        int select = JOptionPane.showOptionDialog(null, "are you want delete?", "Delete", 
+                    0, JOptionPane.NO_OPTION, null, null, 1);
+        if(select==0){
+        myconnect.deleteId((String) table.getValueAt(row, 0));
+        loadData();
+        }
+    }
+    //update
+    private Student getStudent(){
+        String id=tfId.getText().trim().toUpperCase();
+        String name=tfName.getText().trim();
+        if(id.equals("")|| name.equalsIgnoreCase("")){
+            return null;
+        }
+        double point;
+        try {
+           point=Double.parseDouble(tfPoint.getText().trim());
+        } catch (Exception e) {
+            return null;
+        }
+        Student st=new Student(id, name, point);
+        return st;
+    
+    }
+    private void Update(){
+        
+        if(setDisplayInput(true, true)){
+            isUpdate=true;
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Error Update", 
+                    "Error Update", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    //Add
+    private void Add(){
+        setDisplayInput(true, false);
+    }
+    //addUpdate
+    private void addUpdate(){
+        Student st=getStudent();
+            if(st != null){
+                if(isUpdate){
+                    myconnect.upDateStudent_info(st.getId(), st);
+                    loadData();
+                    isUpdate=false;
+                    
+                }else{
+                    myconnect.insertStudent_info(st);
+                    loadData();
+                }
+                clear();
+                setDisplayInput(false, false);
+            }
+            else{
+                JOptionPane.showMessageDialog(null,
+                        "Infomation is error", "Error info", JOptionPane.ERROR_MESSAGE);
+            }
+    }
+    //clear Data
+    private void clear(){
+        tfId.setText("");
+        tfName.setText("");
+        tfPoint.setText("");
+    }
+    //
+    private void cancel(){
+        clear();
+        setDisplayInput(false, false);
+    }
+    //
+     @Override
+    public void actionPerformed(ActionEvent ae) {
+       if(ae.getActionCommand()=="Delete"){
+           Delete();
+           return;
+       }
+       
+       if(ae.getActionCommand()=="Update"){
+           Update();
+           return;
+       }
+       
+       if(ae.getActionCommand()=="Add"){
+           Add();
+           return;
+       }
+       
+       if(ae.getSource()==btnOk){
+          addUpdate();
+       }
+       
+       if(ae.getSource()==btnCancel){
+          cancel();
+       }
+    }
+    
+    
+    public static void main(String[] args) {
+        MyFrame myframe =new MyFrame();
+        myframe.setDisplayInput(false, false);
+        myframe.loadData();
+    }
+
+   
+}
