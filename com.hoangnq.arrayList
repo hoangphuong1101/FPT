@@ -1,0 +1,43 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package demoArrList;
+
+
+import java.util.ArrayList;
+import java.util.Random;
+
+/**
+ *
+ * @author Administrator
+ */
+public class DemoArrList {
+    ArrayList<String> str=new ArrayList<>();
+    public void doSomeThing(){
+        str.add("hello");
+        str.add("world");
+        str.add("phuong");
+        str.add("!");
+        //size
+        System.out.println("size: "+str.size());
+        //kiem tra "hoang" co trong ArrayList str khong
+        System.out.println("true or false: "+str.add("hoang"));//false
+        System.out.println("true or false: "+str.add("!"));//true
+        //System.out.println(""+str.remove(2));// go bo obj[2] la "!"
+        //input ra gia tri 2 va doi gia tri 2 thanh "IT"
+        System.out.println(""+str.set(2, "IT"));//nhap obj thu 3 thanh "IT"
+        
+        System.out.println(str.get(2));
+        for (int i = 0; i < str.size(); i++) {
+            System.out.println(str.get(i));
+        }
+        str.clear();
+        System.out.println(""+str.isEmpty());
+        
+        
+    }
+  
+    
+}
