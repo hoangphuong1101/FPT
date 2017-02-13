@@ -1,0 +1,55 @@
+- Cau 2: 
+CREATE PROC Sp_1(
+	@masp char(5)
+)
+AS
+	BEGIN
+		DELETE FROM tb_SanPham
+		WHERE MaSP = @masp
+	ENd	
+
+GO
+
+ALTER PROC Sp_2(
+	@madh char(5),
+	@masp char(5),
+	@soluong int,
+	@sotien int
+)
+AS
+	BEGIN
+		IF(@madh not like 'DH[0-9][0-9][0-9]')
+			BEGIN
+				print 'Ma don hang khong dung dinh dang DH[0-9][0-9][0-9]'
+				ROLLBACK TRANSACTION
+			END
+		ELSE 
+			IF (@masp not like 'SP[0-9][0-9][0-9]')
+				BEGIN
+					print 'Ma san pham khong dung dinh dang SP[0-9][0-9][0-9]'
+					ROLLBACK TRANSACTION
+				END
+			ELSE
+				IF (@soluong < 0)
+					BEGIN
+						print 'So luong phai > 0'
+						ROLLBACK TRANSACTION
+					END 
+				ELSE 
+					IF (@soluong < 0)
+						BEGIN
+							print 'So tien phai > 0'
+							ROLLBACK TRANSACTION
+						END
+					ELSE
+			INSERT INTO tb_ChiTietDonHang(MaDH,MaSP,SoLuong,TongTien) VALUES(@madh,@masp,@soluong,@sotien)
+	END	
+
+
+GO
+
+EXEC Sp_2 'DH002','SP001',1,71283
+
+-- Cau 3:
+CREATE TRIGGER Trigger_1
+ON tb_
