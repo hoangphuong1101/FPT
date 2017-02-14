@@ -155,3 +155,139 @@ begin
 		rollback tran
 	end
 end
+---
+---\
+--Câu 4: Tạo hàm do người dùng định nghĩa (user-defined function) để tính điểm thưởng cho khách 
+--hàng của tất cả các lần đặt hàng trong 
+--năm 2014, mã khách hàng sẽ được truyền vào thông qua tham số đầu vào của hàm. Cụ thể như sau:
+--	Nếu tổng số tiền khách hàng đã trả cho tất cả các lần mua hàng dưới 2.000.000, thì trả về kết
+-- quả là khách hàng được nhận 20 điểm thưởng.
+--	Nếu tổng số tiền khách hàng đã trả cho tất cả các lần mua hàng từ 2.000.000 trở đi, thì trả về 
+--kết quả là khách hàng được nhận 50 
+--điểm thưởng. 
+
+create function user_defined(@MaKH nvarchar(50))
+returns nvarchar(100)
+as
+begin
+	declare @Notice nvarchar(100)
+	if exists (select KHACHHANG.MaKH from KHACHHANG join DONHANG on KHACHHANG.MaKH=DONHANG.MaKH join CHITIETDONHANG 
+	on DONHANG.MaDH=CHITIETDONHANG.MaDH where KHACHHANG.MaKH=@MaKH
+	 and YEAR(DONHANG.NgayDat)='2014' group by KHACHHANG.MaKH having sum(CHITIETDONHANG.TongTien)>2000000)
+	begin
+		set @Notice = 'Khách hàng được nhận 50 điểm thưởng.'
+	end
+	else
+	begin
+		set @Notice ='Khách hàng được nhận 20 điểm thưởng.'
+	end
+	return @Notice
+end
+---
+--
+--Câu 5: Tạo thủ tục Sp_SanPham tìm những sản phẩm đã từng được khách hàng đặt mua để xóa thông
+-- tin về những sản phẩm đó trong bảng SANPHAM và xóa thông tin những đơn hàng
+-- có liên quan đến những sản phẩm đó (tức là 
+--phải xóa những bản ghi trong bảng DONHANG và CHITIETDONHANG có liên quan đến các sản phẩm đó). 
+
+create proc Sp_SanPham1
+as
+begin
+	begin tran deletepro;
+
+	declare contro cursor
+	for select MaSP, MaDH 
+	from CHITIETDONHANG
+	open contro
+	declare @masp nchar(10)
+	declare @madh nchar(10)
+
+	fetch next from contro
+	into @masp, @madh
+	while @@FETCH_STATUS = 0
+	begin
+
+		delete from CHITIETDONHANG
+
+		if @@ERROR !=0
+			begin
+				print 'rollback';
+				rollback tran deletepro
+			end
+
+		delete from SANPHAM where SANPHAM.MaSP = @masp
+
+		if @@ERROR !=0
+			begin 
+				print 'rollback';
+				rollback tran deletepro
+			end
+		delete from DONHANG where MaDH =@madh
+
+		if @@ERROR !=0
+			begin 
+				print 'rollback';
+				rollback tran deletepro
+			end
+
+	fetch next from contro 
+	into @madh,@masp
+
+	end
+	close contro
+	deallocate contro
+
+	commit tran deletepro;
+
+end
+
+exec Sp_SanPham1
+--
+--
+--------------------------------
+----------------------------------
+-----------contro-----------------
+DECLARE contro CURSOR 
+FOR SELECT mahang,tenhang,soluong FROM mathang 
+OPEN contro 
+DECLARE @mahang NVARCHAR(10) 
+DECLARE @tenhang NVARCHAR(10) 
+DECLARE @soluong INT 
+/*Bắt đầu duyệt qua các dòng trong kết quả truy vấn*/ 
+FETCH NEXT FROM contro 
+INTO @mahang,@tenhang,@soluong 
+WHILE @@FETCH_STATUS=0 
+BEGIN 
+	PRINT 'Ma hang:'+@mahang 
+	PRINT 'Ten hang:'+@tenhang 
+	PRINT 'So luong:'+STR(@soluong) 
+	FETCH NEXT FROM contro 
+	INTO @mahang,@tenhang,@soluong 
+END 
+/*Đóng con trỏ và giải phóng vùng nhớ*/ 
+CLOSE contro 
+DEALLOCATE contro 
+---------------------------------------
+-----------------------------------------
+-------------TRANSACTION-----------------
+CREATE PROC For_TransTest 
+AS
+BEGIN
+	BEGIN TRANSACTION updatestaff;    
+		UPDATE aspnet.staff SET fk_department = 30 
+			WHERE pk_staff = 971;     
+		IF @@ERROR != 0  -- neu co loi xay ra, rollback 
+			BEGIN
+				PRINT 'rollback'; 
+				ROLLBACK TRAN updatestaff; 
+			END    
+		UPDATE aspnet.staff SET fk_department = null
+			WHERE pk_staff = 971; 
+		IF @@ERROR != 0  -- neu co loi xay ra, rollback 
+			BEGIN
+				PRINT 'rollback'; 
+				ROLLBACK TRAN updatestaff; 
+			END
+		ELSE
+			COMMIT TRANSACTION updatestaff;     
+			
