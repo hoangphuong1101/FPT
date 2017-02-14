@@ -1,0 +1,157 @@
+--
+--
+--
+create table DMSANPHAM
+(
+	MaDM nvarchar(50) primary key not null,
+	TenDM nvarchar(50) not null,
+	MoTa nvarchar(50) not null
+)
+create table SANPHAM
+(
+	MaSP nvarchar(50) primary key not null,
+	MaDM nvarchar(50) foreign key REFERENCES DMSANPHAM(MaDM) not null,
+	SoLuog int not null,
+	TenSP nvarchar(50) not null,
+	GiaTien float not null,
+	XuatXu nvarchar(50)
+)
+
+create table THANHTOAN
+(
+	MaTT nvarchar(50) primary key not null,
+	PhuongThuc nvarchar(50) 
+)
+create table KHACHHANG
+(
+	MaKH nvarchar(50) primary key not null,
+	TenKH nvarchar(50) not null,
+	Email nvarchar(50) ,
+	SoDT nvarchar(50),
+	DiaChi nvarchar(50) not null
+)
+create table DONHANG
+(
+	MaDH nvarchar(50) primary key not null,
+	MaKH nvarchar(50) foreign key references KHACHHANG(MAKH) not null,
+	MaTT nvarchar(50) foreign key references THANHTOAN(MaTT) not null,
+	NgayDat date 
+)
+
+create table CHITIETDONHANG
+(
+	MaDH nvarchar(50) ,
+	MaSP nvarchar(50 )	,
+	constraint pk primary key (MaDH,MaSP),
+	SoLuong int ,
+	TongTien float 
+)
+
+
+--Câu 1: Thực hiện yêu cầu sau:
+--a.	Tạo một khung nhìn có tên là V_KhachHang để thấy được thông tin của tất cả các đơn hàng có ngày 
+--đặt hàng nhỏ hơn  ngày 06/15/2015 của những khách hàng có địa chỉ là "Da Nang". 
+create view V_KhachHang
+as
+select DONHANG.MaDH,DONHANG.MaKH,DONHANG.MaTT,DONHANG.NgayDat from DONHANG inner join KHACHHANG 
+on DONHANG.MaKH=KHACHHANG.MaKH where DONHANG.NgayDat<='06/15/2015' and KHACHHANG.DiaChi = 'Da Nang'
+
+
+--b.	Thông qua khung nhìn V_KhachHang thực hiện việc
+-- cập nhật ngày đặt hàng thành 06/15/2015 đối với những khách hang đặt hàng vào ngày 06/15/2014. 
+
+update V_KhachHang
+set NgayDat='06/15/2015'
+where NgayDat='05/15/2015'
+
+--Câu 2: Tạo 2 thủ tục:
+--a.	Thủ tục Sp_1: Dùng để xóa thông tin của những sản phẩm có mã 
+--sản phẩm được truyền vào như một tham số của thủ tục. 
+create proc Sp_1
+(
+	@MaSP nvarchar(50)
+)
+as
+begin
+	delete from SANPHAM where MaSP=@MaSP
+end
+
+exec Sp_1 'SP003'
+
+--b.	Thủ tục Sp_2: Dùng để bổ sung thêm bản ghi mới vào bảng
+-- CHITIETDONHANG (Sp_2 phải thực hiện kiểm tra tính hợp lệ của dữ liệu được
+-- bổ sung là không trùng khóa chính và đảm bảo toàn vẹn tham chiếu đến các bảng có liên quan). 
+ create proc Sp_2
+ (
+	@MaDH nvarchar(50) ,
+	@MaSP nvarchar(50 )	,
+	@SoLuong int ,
+	@TongTien float
+ )
+ as
+ begin
+	if exists (select MaDH from DONHANG where MaDH=@MaDH) and exists (select MaSP from SANPHAM where MaSP=@MaSP)
+	begin
+		if exists (select MaDH from CHITIETDONHANG where MaDH=@MaDH)
+		begin
+			print 'đã trùng dữ liệu từ db!!!'
+			rollback tran
+		end
+		else insert into CHITIETDONHANG values(@MaDH,@MaSP,@SoLuong,@TongTien)
+	end
+	else
+	begin
+		print 'không tồn tại đơn hàng hoặc sản phẩm update!!!'
+		rollback tran
+	end
+ end
+
+ exec Sp_2 'DH002','SP002',3,30000
+--Câu 3: Viết 2 bẫy sự kiện (trigger) cho bảng CHITIETDONHANG theo yêu cầu sau:
+--a.	Trigger_1: Khi thực hiện đăng ký mới một đơn đặt hàng cho 
+--khách hàng thì cập nhật lại số lượng sản phẩm trong bảng 
+--sản phẩm (tức là số lượng sản phẩm còn lại sau khi đã bán). Bẫy sự kiện chỉ xử lý 1 bản ghi.
+
+create trigger trg_1
+on CHITIETDONHANG
+for insert
+as
+begin
+	declare @SoLuong int
+	declare @MaSP nvarchar(50 )
+	select @SoLuong = inserted.SoLuong  from inserted
+	select @MaSP=inserted.MaSP from inserted
+	update SANPHAM set SoLuong=SoLuong-@SoLuong where MaSP=@MaSP
+	
+end
+create trigger trigger_1
+on CHITIETDONHANG
+after insert
+as
+begin
+	declare @SoLuong int
+	declare @MaSP nvarchar(50 )
+	select @SoLuong=SoLuong from inserted
+	select @MaSP=MaSP from inserted
+	update SANPHAM set SoLuong=(SoLuong-@SoLuong) where MaSP=@MaSP
+end
+--b.	Trigger_2: Khi cập nhập lại số lượng sản phẩm mà khách hàng đã đặt hàng, kiểm 
+--tra xem số lượng cập nhật có phù hợp hay không (số lượng phải lớn hơn 1 và nhỏ hơn 100). 
+--Nếu dữ liệu hợp lệ thì cho phép cập nhật, nếu không thì hiển thị thông báo "số lượng sản
+-- phẩm được đặt hàng phải nằm trong khoảng giá trị từ 1 đến 100" và thực hiện quay lui giao tác. 
+
+create trigger trigger_2
+on CHITIETDONHANG
+for update
+as
+begin
+	declare @SoLuong int
+	select @SoLuong=SoLuong from inserted
+	if(@SoLuong between 1 and 100) update CHITIETDONHANG set SoLuong=@SoLuong
+	else
+	begin
+		print 'số lượng sản
+	phẩm được đặt hàng phải nằm trong khoảng giá trị từ 1 đến 100'
+		rollback tran
+	end
+end
