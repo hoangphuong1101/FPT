@@ -1,0 +1,30 @@
+Assignment 6.1 (4 marks)
+The Universal Council library wishes to have an application that allows their employees to input data regarding the books that can be found in each branch.
+The general design for the interface has been drawn below showing labels, general field sizing and options.  
+Produce a HTML page that looks as close to this design as possible. Apply CSS for different page components: header, text, colors, etc.
+ 
+Assignment 6.2 (6 marks)
+The library also wishes to have a web page that allows information on the registered borrowers to be input.
+No exact design has been given for this page, however the following information has been identified as being required:
+
+Field	Details
+BorrowerID	5 Digit Numerical Code
+Title	String that can only be one of the following:
+Mr, Mrs, Miss, Dr
+First_Name	String
+Last_Name	String
+Date_of_Birth	dd/mm/yyyy 
+Address	consists of the following:
+Property Name/Number
+Street
+Town
+City
+Postcode
+Registration_Date	dd/mm/yyyy
+Outstanding_Fines	Boolean flag to indicate whether the registered borrower currently has any outstanding fines
+Total_Fines_Due	Monetary value in dollars
+Last_Lend_Date	dd/mm/yyyy
+Date to indicate last time borrower took books out of the library 
+
+The library also wants to see details of the current books the borrower has as well as a lending history and a fines history for each borrower.
+Design a web page or sets of web pages that you think would present the most suitable way of inputting and displaying this information. Apply CSS for different page components: header, text, colors, etc.
