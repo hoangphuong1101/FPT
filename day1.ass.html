@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css"> 
+		.header{
+			width: 600px;
+			margin: 0 auto;
+			color: #fff;
+			background: #5cb85c; 
+			margin-top: 50px;
+			padding: 10px;
+			text-align: left;
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+		} 
+		.mainwidth{
+			width: 600px;
+			margin: 0 auto; 
+			padding: 15px; 
+			border: 1px #4cae4c solid;
+			border-bottom-left-radius: 10px;
+			border-bottom-right-radius: 10px;
+		}
+	</style>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<title>BOOK MAINTENANCE</title>
+</head>
+<body>
+	<div class="container">
+		<h2 class="header">BOOK MAINTENANCE</h2>
+		<form class="form-horizontal mainwidth">
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="txtBookID">Book ID: </label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="txtBookID" placeholder="Enter Book ID">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="txtBookTitle">Book Title: </label>
+				<div class="col-sm-10"> 
+					<input type="text" class="form-control" id="txtBookTitle" placeholder="Enter Book Title">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="txtAuthor">Author: </label>
+				<div class="col-sm-10"> 
+					<input type="text" class="form-control" id="txtAuthor" placeholder="Enter Author">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="Category">Category: </label>
+				<div class="col-sm-10"> 
+					<label class="checkbox-inline"><input type="checkbox" id="txtcbHorror">Horror</label>
+					<label class="checkbox-inline"><input type="checkbox" value="Romance">Romance</label>
+					<label class="checkbox-inline"><input type="checkbox" value="Thriller">Thriller</label>
+					<label class="checkbox-inline"><input type="checkbox" value="Sci-fi">Sci-fi</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="Publisher">Publisher: </label>
+				<div class="col-sm-10"> 
+					<select class="form-control" name="Publisher">
+						<option value=""></option>
+						<option value="Bao">Bao</option>
+						<option value="PDU">PDU</option>
+						<option value="Ha Bao">Ha Bao</option>
+						<option value="Bao Ha">Bao Ha</option>
+						<option value="Bao Quang">Bao Quang</option>
+					</select>
+				</div>
+			</div> 
+			<div class="form-group text-center">  
+				<button type="submit" class="btn btn-success">Success</button>
+				<button type="reset" class="btn btn-warning">Reset</button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
