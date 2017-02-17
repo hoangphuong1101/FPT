@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css"> 
+		.header{
+			width: 800px;
+			margin: 0 auto;
+			color: #fff;
+			background: #5cb85c; 
+			margin-top: 50px;
+			padding: 10px;
+			text-align: left;
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+		} 
+		.mainwidth{
+			width: 800px;
+			margin: 0 auto; 
+			padding: 15px; 
+			border: 1px #4cae4c solid;
+			border-bottom-left-radius: 10px;
+			border-bottom-right-radius: 10px;
+		}
+	</style>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<link href="css/jquery-ui.css" rel="stylesheet" type="text/css"/>  
+	<script src="js/jquery-ui.min.js"></script> 
+	<script type="text/javascript">
+	   $(function() {
+			   $("#dateOfBirth").datepicker({ dateFormat: "dd/mm/yy" }).val()
+			   $("#registrationDate").datepicker({ dateFormat: "dd/mm/yy" }).val()
+			   $("#lastLendDate").datepicker({ dateFormat: "dd/mm/yy" }).val()
+	   });
+	</script>
+	<title>LIBRARY MAINTENANCE</title>
+</head>
+<body>
+</body>
+<div class="container">
+		<h2 class="header">LIBRARY  MAINTENANCE</h2>
+		<form class="form-horizontal mainwidth">
+			<div class="form-group">
+				<label class="control-label col-sm-3" for="txtBookID">BorrowerID: </label>
+				<div class=" col-sm-9"> 
+					<input type="number" min="10000" max="99999" id="txtBorrowerID" maxlength="5" class="form-control" placeholder="Enter BorrowerID">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3" for="Title">Title: </label>
+				<div class="col-sm-9"> 
+					<select class="form-control"  name="cbTitle">
+						<option value="Mr">Mr</option>
+						<option value="Mrs">Mrs</option>
+						<option value="Miss">Miss</option>
+						<option value="Dr">Dr</option>
+					</select>
+				</div>
+			</div> 
+			<div class="form-group">
+				<label class="control-label col-sm-3" for="txtBookTitle">First Name: </label>
+				<div class=" col-sm-9"> 
+					<input type="text" class="form-control" id="txtFirstName" placeholder="Enter First Name">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3" for="txtBookTitle">Last Name: </label>
+				<div class=" col-sm-9"> 
+					<input type="text" class="form-control" id="txtLastName" placeholder="Enter Last Name">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3" for="txtAuthor">Date of Birth: </label>
+				<div class=" col-sm-9"> 
+					<input type="text" class="form-control" id="dateOfBirth" placeholder="Choose Date of Birth" >
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3" for="txtAuthor">Address: </label>
+				<div class=" col-sm-9"> 
+					<div class="form-group">
+						<label class="control-label col-sm-4" for="txtPropertyNameNumber">Property Name/Number: </label>
+						<div class=" col-sm-8"> 
+							<input type="text" class="form-control" id="txtPropertyNameNumber" placeholder="Enter Property Name/Number">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-4" for="txtBookTitle">Street: </label>
+						<div class=" col-sm-8"> 
+							<input type="text" class="form-control" id="txtStreet" placeholder="Enter Street">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-4" for="txtTown">Town: </label>
+						<div class=" col-sm-8"> 
+							<input type="text" class="form-control" id="txtTown" placeholder="Enter Town">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-4" for="txtCity">City: </label>
+						<div class=" col-sm-8"> 
+							<input type="text" class="form-control" id="txtCity" placeholder="Enter City">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-4" for="txtPostcode">Postcode: </label>
+						<div class=" col-sm-8"> 
+							<input type="text" class="form-control" id="txtPostcode" placeholder="Enter Postcode">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3" for="registrationDate">Registration Date: </label>
+				<div class="col-sm-9"> 
+					<input type="text" class="form-control" id="registrationDate" placeholder="Choose Registration Date">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3" for="checkboxOutstandingFines">Outstanding Fines: </label>
+				<div class=" col-sm-9"> 
+					<input type="checkbox" class="form-control" id="checkboxOutstandingFines">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3" for="txtTotalFinesDue">Total Fines Due: </label>
+				<div class=" col-sm-9"> 
+					<input type="number" class="form-control" id="txtTotalFinesDue" placeholder="Enter Total Fines Due">
+				</div>
+			</div> 
+			<div class="form-group">
+				<label class="control-label col-sm-3" for="lastLendDate">Last Lend Date: </label>
+				<div class=" col-sm-9"> 
+					<input type="text" class="form-control" id="lastLendDate" placeholder="Choose Lend Date">
+				</div>
+			</div> 
+			<div class="form-group text-center">  
+				<button type="submit" class="btn btn-success">Success</button>
+				<button type="reset" class="btn btn-warning">Reset</button>
+			</div>
+		</form>
+	</div>
+</html>
