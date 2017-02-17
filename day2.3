@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css"> 
+		.header{
+			width: 500px;
+			margin: 0 auto;
+			color: #fff;
+			background: #5cb85c; 
+			margin-top: 50px;
+			padding: 10px;
+			text-align: left;
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+		} 
+		.mainwidth{
+			width: 500px;
+			margin: 0 auto; 
+			padding: 15px; 
+			border: 1px #4cae4c solid;
+			border-bottom-left-radius: 10px;
+			border-bottom-right-radius: 10px;
+		}
+	</style>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<link href="css/jquery-ui.css" rel="stylesheet" type="text/css"/>  
+	<script src="js/jquery-ui.min.js"></script> 
+	<script type="text/javascript"> 
+	   
+		function validEmail(v) {
+			var r = new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
+			return (v.match(r) == null) ? false : true;
+		}
+		
+		$(document).ready(function(){
+			$("#btnLogin").click(function(){
+				var email = $("#txtEmail").val();
+				var pass = $("#txtPassword").val();
+				if (email.length < 1){
+					alert("Không được bỏ trống email");
+					$("input#txtEmail").focus();  
+					return false; 
+				}
+				if (pass.length < 1){
+					alert("Không được bỏ trống password");
+					$("input#txtPassword").focus();  
+					return false; 
+				}
+				if (!validEmail(email)) {
+					alert("Email không hợp lệ");
+					$("input#txtEmail").focus();  
+					return false;  
+				}
+				if( email == "hnaptech@aptech.com" && pass == "123" ){
+					alert("Đăng nhập thành công");
+				}else{
+					alert("Vui lòng đăng ký mới");
+				}
+				
+				console.log(email + pass);
+			});
+		});
+	</script>
+	<title>Index system</title>
+</head>
+<body>
+</body>
+<div class="container">
+<center style="margin-top: 100px;"><h1>Welcome to Hanoi - Aptech Education center</h1></center>
+		<h2 class="header">Please log in the system</h2>
+		<form class="form-horizontal mainwidth">
+			<div class="form-group">
+				<label class="control-label col-sm-3" for="txtBookID">Email: </label>
+				<div class=" col-sm-9"> 
+					<input type="text" id="txtEmail" class="form-control" placeholder="Enter Email">
+				</div>
+			</div> 
+			<div class="form-group">
+				<label class="control-label col-sm-3" for="txtBookID">Password: </label>
+				<div class=" col-sm-9"> 
+					<input type="password" id="txtPassword" class="form-control" placeholder="Enter Password">
+				</div>
+			</div> 
+			<div class="form-group text-center">  
+				<button type="submit" id="btnLogin" class="btn btn-success">Login</button> 
+			</div>
+			<div class="form-group text-center">
+				Not registered? Click <a href="register.html">here</a>
+			</div>
+		</form>
+	</div>
+</html>
