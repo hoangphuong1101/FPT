@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css"> 
+		.header{
+			width: 700px;
+			margin: 0 auto;
+			color: #fff;
+			background: #5cb85c; 
+			margin-top: 50px;
+			padding: 10px;
+			text-align: center;
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+			border-bottom-left-radius: 10px;
+			border-bottom-right-radius: 10px;
+		}  
+	</style>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<link href="css/jquery-ui.css" rel="stylesheet" type="text/css"/>  
+	<script src="js/jquery-ui.min.js"></script> 
+	<script type="text/javascript">  
+	$(document).ready(function(){
+		var count = 5;
+		$("#counter").text(5 + "");
+		setInterval(function(){
+		   count--;
+		   $("#counter").text(count + "");
+		   if (count === 0) {
+			  window.location = 'index.html';
+		   }
+		}, 1000);
+	});
+	</script>
+	<title>Success Page</title>
+</head>
+<body>
+</body>
+<div class="container"> 
+	<center>
+			<h1>You have registered successfully!!!</h1>
+		<h4 class="header">
+			Wait for 5 seconds and you'll be taken to login page ... <span id="counter"></span> 
+		</h4>
+	</center>
+	</div>
+</html>
