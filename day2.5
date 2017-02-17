@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css"> 
+		.header{
+			width: 600px;
+			margin: 0 auto;
+			color: #fff;
+			background: #5cb85c; 
+			margin-top: 50px;
+			padding: 10px;
+			text-align: left;
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+		} 
+		.mainwidth{
+			width: 600px;
+			margin: 0 auto; 
+			padding: 15px; 
+			border: 1px #4cae4c solid;
+			border-bottom-left-radius: 10px;
+			border-bottom-right-radius: 10px;
+		}
+	</style>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<title>Sample Form</title>
+</head>
+<body>
+	<div class="container">
+		<h2 class="header">Sample Stock Survey</h2>
+		<form class="mainwidth">
+			<div class="form-group">
+				<label class="control-label" for="Category">Describe your investment experience </label>
+				<div> 
+					<label class="checkbox-inline"><input type="radio" name="Describe" id="txtcbHorror">Beginner</label>
+					<label class="checkbox-inline"><input type="radio" name="Describe"  value="Romance">Intermediate</label>
+					<label class="checkbox-inline"><input type="radio" name="Describe"  value="Thriller">Expert</label> 
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="txtBookID">Type of Investments you make </label>
+				<div>
+					<label class="checkbox-inline"><input type="checkbox" id="txtcbHorror">Individual Stocks</label>
+					<label class="checkbox-inline"><input type="checkbox" value="Romance">Options</label>
+					<label class="checkbox-inline"><input type="checkbox" value="Thriller">Mutual Funds</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="txtBookTitle">How do you buy your stocks? </label>
+				<div> 
+					<select class="form-control" name="Publisher">
+						<option value=""></option>
+						<option value="1">1) On-line</option>
+						<option value="2">2) Touch Tone Trading</option>
+						<option value="3">3) Broker Assisted</option>
+						<option value="4">4) Other</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="txtAuthor">What is your hot stock pick from </label>
+				<div> 
+					<input type="text" class="form-control" id="txtAuthor" placeholder="Enter your hot stock pick from">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="Category">Any Investment Advice for others? </label>
+				<div> 
+					<textarea type="text" class="form-control" id="txtAuthor" placeholder="Enter Any Investment Advice for others"></textarea>
+				</div>
+			</div> 
+			<div class="form-group text-center">  
+				<button type="submit" class="btn btn-success">Submit</button>
+				<button type="reset" class="btn btn-warning">Reset</button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
