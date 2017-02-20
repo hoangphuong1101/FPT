@@ -1,0 +1,487 @@
+
+package Home;
+
+
+import List.CheckupList;
+import List.CustomerList;
+import List.StaffList;
+//import List.Staff;
+
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import static myconnect.MyConnect.getConnect;
+import view.Checkup;
+import view.Customer;
+import view.Staff;
+
+public class Home extends javax.swing.JFrame {
+    private Connection con;
+    private ResultSet rs;
+    private PreparedStatement stmt;
+    //
+    public Home() {
+        initComponents();
+        try {
+            con=getConnect();
+        } catch (Exception e) {
+        }
+    }
+    public Home(Customer custome) {
+        super();
+        initComponents();
+        try {
+            con=getConnect();
+        } catch (Exception e) {
+        }
+    }
+    public Home(Staff staf) {
+        super();
+        initComponents();
+        try {
+            con=getConnect();
+        } catch (Exception e) {
+        }
+    }
+    public Home(Checkup staf) {
+        super();
+        initComponents();
+        try {
+            con=getConnect();
+        } catch (Exception e) {
+        }
+    }
+    
+    public Home(StaffList list){
+        super();
+       initComponents();
+        try {
+            con=getConnect();
+        } catch (Exception e) {
+        } 
+    }
+    
+    public Home(CustomerList customer){
+        super();
+       initComponents();
+        try {
+            con=getConnect();
+        } catch (Exception e) {
+        } 
+    }
+    //
+    public Home(CheckupList list){
+        super();
+       initComponents();
+        try {
+            con=getConnect();
+        } catch (Exception e) {
+        } 
+    }
+    //login
+    public Home(Login login){
+        super();
+       initComponents();
+        try {
+            con=getConnect();
+        } catch (Exception e) {
+        } 
+    }
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jPanel11 = new javax.swing.JPanel();
+        btnChangePass = new javax.swing.JButton();
+        btnexit = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        btnExit = new javax.swing.JLabel();
+        btnHome = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        cbbManager = new javax.swing.JComboBox<>();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        cbbStatstics = new javax.swing.JComboBox<>();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        btnHelp = new javax.swing.JButton();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        btnAbout = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Polyclinic Management System");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setResizable(false);
+
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+
+        jPanel3.setBackground(new java.awt.Color(255, 153, 102));
+        jPanel3.setLayout(new java.awt.GridLayout(1, 0));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Polyclinic Management System");
+        jPanel3.add(jLabel2);
+
+        jPanel2.setBackground(new java.awt.Color(0, 153, 204));
+        jPanel2.setLayout(new java.awt.GridLayout(6, 1));
+
+        jPanel5.setBackground(new java.awt.Color(51, 51, 255));
+        jPanel5.setLayout(new java.awt.GridLayout(2, 1));
+
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mages/admin32x32.png"))); // NOI18N
+        jLabel7.setText("ADMIN");
+        jPanel5.add(jLabel7);
+
+        jPanel11.setLayout(new java.awt.GridLayout(1, 2));
+
+        btnChangePass.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        btnChangePass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mages/reset.png"))); // NOI18N
+        btnChangePass.setText("Change Pass");
+        jPanel11.add(btnChangePass);
+
+        btnexit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mages/Cancel.png"))); // NOI18N
+        btnexit.setText("Exit");
+        btnexit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnexitActionPerformed(evt);
+            }
+        });
+        jPanel11.add(btnexit);
+
+        jPanel5.add(jPanel11);
+
+        jPanel2.add(jPanel5);
+
+        jPanel6.setBackground(new java.awt.Color(51, 153, 255));
+        jPanel6.setLayout(new java.awt.GridLayout(2, 1));
+
+        btnExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mages/home.png"))); // NOI18N
+        btnExit.setText("Home");
+        jPanel6.add(btnExit);
+
+        btnHome.setText("HOME");
+        jPanel6.add(btnHome);
+
+        jPanel2.add(jPanel6);
+
+        jPanel7.setBackground(new java.awt.Color(51, 153, 255));
+        jPanel7.setLayout(new java.awt.GridLayout(2, 1));
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mages/manager.png"))); // NOI18N
+        jLabel3.setText("Manager");
+        jPanel7.add(jLabel3);
+
+        cbbManager.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Customer", "Staff", "Checkup", "Service" }));
+        cbbManager.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbManagerActionPerformed(evt);
+            }
+        });
+        jPanel7.add(cbbManager);
+
+        jPanel2.add(jPanel7);
+
+        jPanel8.setBackground(new java.awt.Color(51, 153, 255));
+        jPanel8.setLayout(new java.awt.GridLayout(2, 1));
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mages/statistic.png"))); // NOI18N
+        jLabel4.setText("Statistics");
+        jPanel8.add(jLabel4);
+
+        cbbStatstics.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Customer", "Staff", "Checkup", "Service" }));
+        cbbStatstics.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbStatsticsActionPerformed(evt);
+            }
+        });
+        jPanel8.add(cbbStatstics);
+
+        jPanel2.add(jPanel8);
+
+        jPanel9.setBackground(new java.awt.Color(51, 153, 255));
+        jPanel9.setLayout(new java.awt.GridLayout(2, 1));
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mages/Help.png"))); // NOI18N
+        jLabel5.setText("Help");
+        jPanel9.add(jLabel5);
+
+        btnHelp.setText("HELP");
+        jPanel9.add(btnHelp);
+
+        jPanel2.add(jPanel9);
+
+        jPanel10.setBackground(new java.awt.Color(51, 51, 255));
+        jPanel10.setLayout(new java.awt.GridLayout(2, 1));
+
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mages/about.png"))); // NOI18N
+        jLabel6.setText("About");
+        jPanel10.add(jLabel6);
+
+        btnAbout.setText("ABOUT");
+        jPanel10.add(btnAbout);
+
+        jPanel2.add(jPanel10);
+
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mages/chat-luong-phong-kham-da-khoa-thien-hoa1.jpg"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>                        
+
+    private void cbbStatsticsActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        // TODO add your handling code here:
+    }                                            
+
+    private void btnexitActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        Login login=new Login();
+        login.setVisible(true);
+        this.setVisible(false);
+    }                                       
+
+    private void cbbManagerActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        String option=cbbManager.getSelectedItem().toString();
+        String sql="SELECT * FROM admin WHERE username=? AND password=?";
+        switch(option){
+            
+            case "Checkup":
+                //
+                        String username=JOptionPane.showInputDialog("vui long dang nhap username!");
+                        String password=JOptionPane.showInputDialog("vui long dang nhap password!");
+                        try {
+                            stmt =con.prepareStatement(sql);
+                             stmt.setString(1, username);
+                            stmt.setString(2, password);
+                            rs=stmt.executeQuery();
+                            if(rs.next()){
+                                String roles=rs.getString("roles");
+                                switch(roles){
+                                    case "admin":
+                                        //
+                                        JOptionPane.showMessageDialog(this,"Hello Admin!");
+                                        CheckupList admin=new CheckupList(this);
+                                        admin.setVisible(true);
+                                        this.setVisible(false);
+                                        break;
+                                    case "manager_checkup":
+                                        //
+                                        JOptionPane.showMessageDialog(this,"Hello manager_checkup!");
+                                        CheckupList checkup=new CheckupList(this);
+                                        checkup.setVisible(true);
+                                        this.setVisible(false);
+                                        break;
+                                    default:
+                                        //
+                                        Checkup st=new Checkup(this);
+                                        st.setVisible(true);
+                                        this.setVisible(false);
+                                        break;
+                                }
+                            }else{
+                                JOptionPane.showMessageDialog(this, "username || password khong dung!!");
+                            }
+                    } catch (Exception e) {
+                    }
+                break;
+            case "Staff":
+                //
+                        String username1=JOptionPane.showInputDialog("vui long dang nhap username!");
+                        String password1=JOptionPane.showInputDialog("vui long dang nhap password!");
+                        try {
+                            stmt =con.prepareStatement(sql);
+                             stmt.setString(1, username1);
+                            stmt.setString(2, password1);
+                            rs=stmt.executeQuery();
+                            if(rs.next()){
+                                String roles=rs.getString("roles");
+                                switch(roles){
+                                    case "admin":
+                                        //
+                                        JOptionPane.showMessageDialog(this,"Hello Admin!");
+                                        StaffList admin=new StaffList(this);
+                                        admin.setVisible(true);
+                                        this.setVisible(false);
+                                        break;
+                                    case "manager_staff":
+                                        //
+                                        JOptionPane.showMessageDialog(this,"Hello manager_staff!");
+                                        StaffList staff=new StaffList(this);
+                                        staff.setVisible(true);
+                                        this.setVisible(false);
+                                        break;
+                                    default:
+                                        //
+                                        Staff st=new Staff(this);
+                                        st.setVisible(true);
+                                        this.setVisible(false);
+                                        break;
+
+                                }
+                            }else{
+                                JOptionPane.showMessageDialog(this, "username || password khong dung!!");
+                            }
+                    } catch (Exception e) {
+                    }
+                break;
+            case "Customer":
+                //
+                        String username2=JOptionPane.showInputDialog("vui long dang nhap username!");
+                        String password2=JOptionPane.showInputDialog("vui long dang nhap password!");
+                        try {
+                            stmt =con.prepareStatement(sql);
+                             stmt.setString(1, username2);
+                            stmt.setString(2, password2);
+                            rs=stmt.executeQuery();
+                            if(rs.next()){
+                                String roles=rs.getString("roles");
+                                switch(roles){
+                                    case "admin":
+                                        //
+                                        JOptionPane.showMessageDialog(this,"Hello Admin!");
+                                        CustomerList admin=new CustomerList(this);
+                                        admin.setVisible(true);
+                                        this.setVisible(false);
+                                        break;
+                                    case "manager_customer":
+                                        //
+                                        JOptionPane.showMessageDialog(this,"Hello manager_customer!");
+                                        CustomerList customer=new CustomerList(this);
+                                        customer.setVisible(true);
+                                        this.setVisible(false);
+//                                        break;
+                                        break;
+                                    default:
+                                        //
+                                        Customer st=new Customer(this);
+                                        st.setVisible(true);
+                                        this.setVisible(false);
+                                        break;
+                                }
+                            }else{
+                                JOptionPane.showMessageDialog(this, "username || password khong dung!!");
+                            }
+                    } catch (Exception e) {
+                    }
+                break;
+             default:
+                 //
+                 break;
+                         
+        }
+        
+            
+    }                                          
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Home().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify                     
+    private javax.swing.JButton btnAbout;
+    private javax.swing.JButton btnChangePass;
+    private javax.swing.JLabel btnExit;
+    private javax.swing.JButton btnHelp;
+    private javax.swing.JButton btnHome;
+    private javax.swing.JButton btnexit;
+    private javax.swing.JComboBox<String> cbbManager;
+    private javax.swing.JComboBox<String> cbbStatstics;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
+    // End of variables declaration                   
+}
