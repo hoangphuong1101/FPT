@@ -1,0 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	String user=request.getParameter("userName");
+	String password=request.getParameter("password");
+	if("hoang".equals(user)&&"123".equals(password)){
+		//tc
+		RequestDispatcher dispatcher=request.getRequestDispatcher("welcome.jsp");
+		dispatcher.forward(request,response);
+	}else{
+		//tb
+		
+	}
+%>  
