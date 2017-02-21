@@ -1,0 +1,27 @@
+																	
+																	
+																	
+																	
+								CheckListStudentBo (model)				CheckListStudentBo (model)			UpdateStudent.jsp		UpdateStudent
+															(v)		(html)
+																	
+																	
+											CheckListStudentServlet ©				DeleteStudent.jsp		DeleteStudent
+						ListStudent.jsp		ListStudent							(v)		(html)
+						(html)		(html)									
+																	
+															AddStudent.jsp		AddStudent
+				Login.jsp		Login									(v)		(html)
+				(v)		(html)											
+																	
+																	
+																	
+				ShowLoginServlet				CheckLoginServlet ©			CheckLoginBo (model)						
+				©													
+																	
+											CheckLoginDao (model)						
+				Browser													
+																	
+																	
+							Login.jsp		Login								
+							(v)		(html)								
