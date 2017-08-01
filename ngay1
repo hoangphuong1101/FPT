@@ -1,0 +1,14 @@
+Day 1
+
+Công ty Unilever là một cty 100% vốn nước ngoài tại Việt Nam, chuyên sản xuất các mặt hàng gia dụng (chất tẩy rửa, thực phẩm) gồm: 
+-	Bột giặt OMO
+-	Xà phòng Lifebouy
+-	Dầu gội đầu 
+-	Kem dưỡng da
+-	Kem
+Hệ thống quản lý bán hàng của cty gồm:
+1.	Nhà phân phối – NPP: các sản phẩm của cty chủ yếu được được bán tại Việt Nam thông qua một hệ thống các Nhà phân phối trải đều trên khắp các tỉnh thành VN. NPP tùy tình hình tiêu thụ hàng mà định kỳ hoặc bất kỳ thực hiện mua hàng từ cty Unilever. Khi mua hàng, NPP có thể trả tiền ngay hoặc nợ, mỗi NPP được phép nợ trong khoảng thời gian dài ngắn khác nhau (có NPP được phép nợ 2 tuần, có NPP được phép nợ 4 tuần, …). Sau thời gian này nếu NPP vẫn chưa trả tiền thì khoản nợ sẽ được tính là nợ quá hạn và phải chịu lãi. Doanh số bán hàng, công nợ và hàng tồn kho của NPP được quản lý bởi cty Unilever.
+2.	 Nhân viên bán hàng: các NPP có đội ngũ Nhân viên bán hàng, các nhân viên bán hàng hàng ngày nhận hàng từ NPP và mang bán trên thị trường. Nhân viên bán hàng khi nhận hàng từ NPP sẽ bị tính công nợ đối với NPP và phải có trách nhiệm bán hàng và thanh toán tiền cho NPP. Cuối mỗi ngày trường hợp chưa bán hết hàng, nhân viên bán hàng có thể trả lại cho NPP dưới hình thức nhập lại vào kho của NPP hoặc có thể ko trả lại cho NPP, giữ lại để ngày mai đi bán tiếp. Hàng ngày cuối giờ chiều nhân viên bán hàng nộp lại cho NPP số tiền mà nhân viên bán hàng thu được từ khách hàng. Doanh số bán hàng và công nợ của nhân viên bán hàng được quản lý bởi NPP.
+3.	Khách hàng: mỗi nhân viên bán hàng phụ trách một khu vực thị trường nhất định gồm một hệ thông khách hàng (cố định và ko cố định). Khách hàng khi mua hàng có thể thanh toán tiền ngay cho nhân viên bán hàng hoặc nợ (thông thường khách hàng cố định được phép nợ, khách hàng ko cố định – vãng lai thì ko được phép nợ). Tùy từng đối tượng khách hàng mà có thời gian nợ dài ngắn khác nhau (có khách hàng được phép nợ 5 ngày, có khách hàng được phép nợ 15 ngày, …). Sau khoảng thời gian này, nếu khách hàng vẫn chưa thanh toán thì khoản nợ sẽ được tính thành khoản nợ quá hạn và có thể chịu lãi. Mức độ mua hàng và công nợ của khách hàng được quản lý bới nhân viên bán hàng và NPP.
+
+Yêu cầu: vẽ sơ đồ thực thể quan hệ và lược đồ cơ sở dữ liệu quan hệ.
